@@ -15,7 +15,6 @@ public class ReadTextFromFile {
         FileWriter fileWriter = new FileWriter(resultTask);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write(result);
-        bufferedWriter.flush();
         bufferedWriter.close();
     }
 
