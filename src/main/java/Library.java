@@ -12,7 +12,7 @@ public class Library {
 
     public static void main(String[] args) {
 
-        boolean bool = false;
+        boolean continua = false;
         do {
             try {
                 reedingCatalog().stream().forEach(System.out::println);
@@ -25,46 +25,46 @@ public class Library {
                     "delete book in directory (2); " +
                     "exit the program (3).");
             scanner.useDelimiter("\n");
+
             int tittle = scanner.nextInt();
-            if (tittle == 1) {
-                System.out.println("Enter the name of the book, author and category");
-                name = scanner.next();
-                author = scanner.next();
-                categorize = scanner.next();
-                saveBookToCatalog();
-                bool = true;
+            switch (tittle) {
+                case 1 -> {
+                    System.out.println("Enter the name of the book, author and category");
+                    name = scanner.next();
+                    author = scanner.next();
+                    categorize = scanner.next();
+                    saveBookToCatalog();
+                    continua = true;
+                }
+                case 2 -> {
+                    System.out.println("Enter the name of the book");
+                    name = scanner.next();
+                    deleteBookFromCatalog();
+                    continua = true;
+                }
+                case 3 -> {
+                    scanner.close();
+                    continua = false;
+                }
             }
-            if (tittle == 2) {
-                System.out.println("Enter the name of the book");
-                name = scanner.next();
-                deleteBookFromCatalog();
-                bool = true;
-            }
-            if (tittle == 3) {
-                scanner.close();
-                bool = false;
-            }
-        }while (bool);
+        }while (continua);
     }
 
     public static void deleteBookFromCatalog(){
 
         Books book = new Books(name);
-        HashSet<Object> library = null;
+        HashSet<Books> library = new HashSet<>();
         try {
             library = reedingCatalog();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        assert library != null;
         library.remove(book);
         try {
             File file = new File("src/main/resources/library/books catalog");
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             for (Object s : library) out.writeObject(s);
-            out.close();
-            fileOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,38 +74,37 @@ public class Library {
 
         Books book = new Books(name, author, categorize);
 
-        HashSet<Object> library = null;
+        HashSet<Books> library = null;
         try {
             library = reedingCatalog();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        assert library != null;
         library.add(book);
         try {
             File file = new File("src/main/resources/library/books catalog");
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             for (Object s : library) out.writeObject(s);out.close();
-
             fileOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static HashSet<Object> reedingCatalog() throws IOException, ClassNotFoundException {
+    public static HashSet<Books> reedingCatalog() throws IOException, ClassNotFoundException {
+
+        HashSet<Books> newLibrary = new HashSet<>();
         try {
             File file = new File("src/main/resources/library/books catalog");
             FileInputStream fileInput = new FileInputStream(file);
             ObjectInputStream input = new ObjectInputStream(fileInput);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            HashSet<Object> newLibrary = new HashSet<>();
             try {
                 do {
                     if (file.canRead()){
-                        newLibrary.add(input.readObject());
+                        newLibrary.add((Books) input.readObject());
                     }else System.out.println("File is empty!");
                 }while (bufferedReader.ready());
             }catch (EOFException ignored){
@@ -115,9 +114,11 @@ public class Library {
             input.close();
             fileInput.close();
             return newLibrary;
-        }catch (IOException | ClassNotFoundException e) {
+        }
+        catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return null;
+        return newLibrary;
     }
+
 }
