@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Marketing management",
+    "author": "Kotler",
+    "categorize": "maps"
+  },
+  {
+    "name": "Pixar",
+    "author": "Lorens Levi",
+    "categorize": "business, entrepreneurship"
+  },
+  {
+    "name": "Marketing hack",
+    "author": "Fill Barden",
+    "categorize": "Marketing"
+  }
+]
