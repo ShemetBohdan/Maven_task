@@ -1,25 +1,26 @@
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Books implements Serializable {
+public class Books {
 
     private String name;
     private String author;
     private String categorize;
 
+    public Books() {
+    }
 
     public Books(String name) {
         this.name = name;
     }
 
-    public Books(String name, String autor, String type) {
+    public Books(String name, String author, String categorize) {
         this.name = name;
-        this.author = autor;
-        this.categorize = type;
+        this.author = author;
+        this.categorize = categorize;
     }
 
-    public String getName(String name) {
-        return this.name;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -63,4 +64,5 @@ public class Books implements Serializable {
                 ", categorize='" + categorize + '\'' +
                 '}';
     }
+
 }
