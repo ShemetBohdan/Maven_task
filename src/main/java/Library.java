@@ -52,14 +52,14 @@ public class Library {
 
     public static void deleteBookFromCatalog(){
 
-        Books book = new Books(name);
+//        Books book = new Books(name);
         HashSet<Books> library = new HashSet<>();
         try {
             library = reedingCatalog();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        library.remove(book);
+//        library.remove(book);
         try {
             File file = new File("src/main/resources/library/books catalog");
             FileOutputStream fileOut = new FileOutputStream(file);
