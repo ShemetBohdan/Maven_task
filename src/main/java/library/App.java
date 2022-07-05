@@ -1,7 +1,7 @@
 package library;
 
 import library.dao.LibraryDAO;
-import library.dao.LibraryDAOim;
+import library.dao.LibraryDAOImpl;
 import library.model.Book;
 
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
         boolean continua = false;
-        LibraryDAO libraryDAO = new LibraryDAOim();
+        LibraryDAO libraryDAO = new LibraryDAOImpl();
 
         do {
             System.out.println("(1) read library");

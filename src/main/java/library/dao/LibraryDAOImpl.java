@@ -5,11 +5,11 @@ import library.model.Book;
 
 import java.sql.*;
 
-public class LibraryDAOim implements LibraryDAO {
+public class LibraryDAOImpl implements LibraryDAO {
 
     private final Connection connection;
 
-    public LibraryDAOim() {
+    public LibraryDAOImpl() {
         this.connection = new DataBaseConfig().getDBConnection();
     }
 
